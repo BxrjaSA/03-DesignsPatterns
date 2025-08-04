@@ -1,0 +1,11 @@
+{
+  "name": "03-designpatterns",
+  "version": "0.0.1",
+  "description": "Practica y anotaciones sobre diseño de patrones",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bxrja SV",
+  "license": "ISC"
+}
