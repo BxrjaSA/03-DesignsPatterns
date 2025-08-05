@@ -1,6 +1,6 @@
 # Diseño de Patrones
 ## Factory Method
-
+Sitio oficial de referencia [Refactoring Guru](https://refactoring.guru/es/design-patterns/)
 
 
 
@@ -10,13 +10,13 @@
 Crea una factoría de notificadores (por consola, correo electrónico, y SMS).
 **Requisitos:**
 
-  -  Una interfaz Notifier con método send(message: string): void.
+  -  Una interfaz Notifier con método ```send(message: string): void```.
 
-  -  Clases concretas: ConsoleNotifier, EmailNotifier, SMSNotifier.
+  -  Clases concretas: `ConsoleNotifier`, `EmailNotifier`, `SMSNotifier`.
 
-  -  Una clase NotifierFactory que devuelva el tipo de notificador adecuado según configuración ("console", "email", "sms").
+  -  Una clase ```NotifierFactory``` que devuelva el tipo de notificador adecuado según configuración ("console", "email", "sms").
 
-  -  Simula una función config = getNotificationType().
+  -  Simula una función ```config = getNotificationType()```.
 
 ✅ **Objetivo:** Entender cómo cambiar la clase concreta sin tocar la lógica del cliente.
 
@@ -27,11 +27,11 @@ Crea una factoría de notificadores (por consola, correo electrónico, y SMS).
 Simula un sistema de UI que renderiza diferentes botones según el tipo de dispositivo (desktop, mobile, tablet).
 **Requisitos:**
 
-  -  Interfaz UIElement con método render().
+  -  Interfaz UIElement con método ```render()```.
 
-  -  Clases concretas: DesktopButton, MobileButton, TabletButton.
+  -  Clases concretas: `DesktopButton`, `MobileButton`, `TabletButton`.
 
-  -  Una fábrica abstracta UIFactory y subclases DesktopFactory, MobileFactory, etc.
+  -  Una fábrica abstracta `UIFactory` y subclases `DesktopFactory`, `MobileFactory`, etc.
 
   -  Crea un archivo HTML y usa TypeScript para inyectar los elementos.
 
