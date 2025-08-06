@@ -1,13 +1,9 @@
 // 📝 Enunciado:
 // Simula un sistema de UI que renderiza diferentes botones según el tipo de dispositivo (desktop, mobile, tablet).
 // Requisitos:
-
 //   -  Interfaz UIElement con método `render()`.
-
 //   -  Clases concretas: `DesktopButton`, `MobileButton`, `TabletButton`.
-
 //   -  Una fábrica abstracta `UIFactory` y subclases `DesktopFactory`, `MobileFactory`, etc.
-
 //   -  Crea un archivo HTML y usa TypeScript para inyectar los elementos.
 
 // ✅ Objetivo: Practicar el patrón en un entorno más visual, con el DOM.

@@ -1,5 +1,13 @@
 # Diseño de Patrones
-## Factory Method
+## Patrones Creacionales
+### Builder
+Es un patrón de diseño creacional que permite construir objetos paso a paso.
+
+El patrón permite producir distintos tipos y representaciones de un objeto
+empleando el mismo código de construcción.
+
+### Factory Method
+
 Sitio oficial de referencia [Refactoring Guru](https://refactoring.guru/es/design-patterns/)
 
 
@@ -10,13 +18,13 @@ Sitio oficial de referencia [Refactoring Guru](https://refactoring.guru/es/desig
 Crea una factoría de notificadores (por consola, correo electrónico, y SMS).
 **Requisitos:**
 
-  -  Una interfaz Notifier con método ```send(message: string): void```.
+  -  Una interfaz Notifier con método `send(message: string): void`.
 
   -  Clases concretas: `ConsoleNotifier`, `EmailNotifier`, `SMSNotifier`.
 
-  -  Una clase ```NotifierFactory``` que devuelva el tipo de notificador adecuado según configuración ("console", "email", "sms").
+  -  Una clase `NotifierFactory` que devuelva el tipo de notificador adecuado según configuración ("console", "email", "sms").
 
-  -  Simula una función ```config = getNotificationType()```.
+  -  Simula una función `config = getNotificationType()`.
 
 ✅ **Objetivo:** Entender cómo cambiar la clase concreta sin tocar la lógica del cliente.
 
@@ -27,7 +35,7 @@ Crea una factoría de notificadores (por consola, correo electrónico, y SMS).
 Simula un sistema de UI que renderiza diferentes botones según el tipo de dispositivo (desktop, mobile, tablet).
 **Requisitos:**
 
-  -  Interfaz UIElement con método ```render()```.
+  -  Interfaz `UIElement` con método `render()`.
 
   -  Clases concretas: `DesktopButton`, `MobileButton`, `TabletButton`.
 
@@ -44,13 +52,13 @@ Simula un sistema de UI que renderiza diferentes botones según el tipo de dispo
 Crea un sistema que permita subir archivos a diferentes servicios (local, AWS S3, Google Cloud).
 **Requisitos:**
 
-  -  Interfaz Uploader con método upload(file: File): Promise<void>.
+  -  Interfaz `Uploader` con método `upload(file: File): Promise<void>`.
 
-  -  Implementaciones concretas: LocalUploader, S3Uploader, GCloudUploader.
+  -  Implementaciones concretas: `LocalUploader`, `S3Uploader`, `GCloudUploader`.
 
-  -  Una fábrica abstracta UploaderFactory y subclases según el servicio.
+  -  Una fábrica abstracta `UploaderFactory` y subclases según el servicio.
 
-  -  Simula el uso de process.env.UPLOAD_PROVIDER para decidir la fábrica.
+  -  Simula el uso de `process.env.UPLOAD_PROVIDER` para decidir la fábrica.
 
 ✅ **Objetivo:** Ver cómo este patrón ayuda a separar entorno y lógica.
 
@@ -61,7 +69,7 @@ Crea un sistema que permita subir archivos a diferentes servicios (local, AWS S3
 Genera avatares personalizados según el tipo de usuario (artista, administrador, visitante).
 **Requisitos:**
 
-  -  Interfaz Avatar con render(): HTMLElement.
+  -  Interfaz `Avatar` con `render(): HTMLElement`.
 
   -  Clases concretas que muestren avatares distintos.
 
