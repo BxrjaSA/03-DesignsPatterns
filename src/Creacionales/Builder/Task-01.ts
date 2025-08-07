@@ -40,10 +40,10 @@ import { COLORS } from '../../helpers/colors.ts';
     private table: string;
     private fields: string [] = [];
     private conditions: string[] = [];
-    private orderFields?: string[] = [];
+    private orderFields: string[] = [];
     private limitCount?: number;
 
-    cosntructor(table: string) {
+    constructor(table: string) {
       this.table = table;
     }
 
@@ -57,8 +57,8 @@ import { COLORS } from '../../helpers/colors.ts';
       return this;
     }
     
-    orderBy(field: string, direction: 'ASC' | 'DES' = 'ASC'): QueryBuilder {
-      this.orderFields.push(`order by ${field} ${direction}`);
+    orderBy(field: string, direction: 'ASC' | 'DESC' = 'ASC'): QueryBuilder {
+      this.orderFields.push(`${field} ${direction}`);
       return this;
     }
     
@@ -66,30 +66,39 @@ import { COLORS } from '../../helpers/colors.ts';
       this.limitCount = count;
       return this;
     }
-  
+    
     
     execute(): string {
+      const fields = this.fields.length > 0 ? this.fields.join(', ') : ['*'];
+      const whereConditions = this.conditions.length > 0 ? ` WHERE ${this.conditions.join(' AND ')}` : ' ';
+      const orderField = this.orderFields.length > 0 ? ` ORDER BY ${this.orderFields.join(', ')}` : '';
+      const limit = this.limitCount ? ` LIMIT ${this.limitCount};` : ';';
       
-      let queryConditions: string [];
-      const fields = this.fields.length > 0 ? this.fields.join(', ') : ['*'] 
+      let query = `SELECT ${fields} FROM ${this.table}${whereConditions}`;
       
-      const whereConditions = this.conditions.length > 0 ? this.conditions.join(' AND ') : ' ';
+      if (this.orderFields) {
+        query += orderField;
+        console.log('orderField no existe y el tipo de dato es: ', typeof orderField);
+      }
 
-
-      // WHERE debe de ser condicional
-      // ORDER BY debe de ser condicional
-      // LIMIT debe de ser condicional
-      
-      // const query = `
-      //   SELECT ${fields}
-      //   FROM ${this.table}
-      //   WHERE ${whereConditions}
-      //   $
-      //   `
-
-
-      return `Select id, name, email from users where age > 18 and country = 'Cri' order by name ASC limit 10;`;
+      return query += limit;
     }
   
   }
 
+function main() {
+  const usersQuery = new QueryBuilder('users') // users es el nombre de la tabla
+    // .select("id", "name", "email")
+    .where("age > 18")
+    .where("country = 'Cri'")
+    .orderBy("name", "ASC")
+    .orderBy("age", "DESC")
+    .limit(10)
+    .execute();
+
+  console.log('%cConsulta:\n', COLORS.blue);
+  console.log(usersQuery);
+}
+
+
+main();
