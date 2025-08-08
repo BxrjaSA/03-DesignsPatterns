@@ -14,6 +14,25 @@ interface Character {
   items?: string[];
 }
 
+interface Sheet {
+  title: string;
+  description: string;
+  stats: Record<string, number>;
+  skills: string[];
+  items: string[];
+}
+
+interface InterfaceCharacterBuilder {
+  class: string;
+  name: string;
+  level: number;
+  power: number;
+  defense: number;
+  health: number;
+  exp?: number;
+  skills?: string[];
+  items?: string[];
+}
 
 // --------------------------------------------
 // ------------  CLASE BUILDER  ---------------
@@ -75,18 +94,14 @@ class CharacterBuilder{
     return this;
   }
 
-  setSkill(characterSkill: string): CharacterBuilder {
+  addSkill(characterSkill: string): CharacterBuilder {
     this.character.skills?.push(characterSkill);
     return this;
   }
 
-  setItem(characterItem: string): CharacterBuilder {
+  addItem(characterItem: string): CharacterBuilder {
     this.character.items?.push(characterItem);
     return this;
-  }
-
-  build(): Character {
-    throw new Error('Método build no implementado');
   }
 }
 
