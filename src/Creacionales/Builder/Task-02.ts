@@ -22,22 +22,23 @@ interface Sheet {
   items: string[];
 }
 
-interface InterfaceCharacterBuilder {
-  class: string;
-  name: string;
-  level: number;
-  power: number;
-  defense: number;
-  health: number;
-  exp?: number;
-  skills?: string[];
-  items?: string[];
+interface Builder {
+  reset(): void;
+  setClass(className: string): void;
+  setName(name: string): void;
+  setLevel(level: number): void;
+  setPower(power: number): void;
+  setDefense(defense: number): void;
+  setHealth(health: number): void;
+  setExp(exp: number): void;
+  addSkill(skill: string): void;
+  addItem(item: string): void;
 }
 
 // --------------------------------------------
 // ------------  CLASE BUILDER  ---------------
 // --------------------------------------------
-class CharacterBuilder{
+class CharacterBuilder implements Builder {
   private character: Character;
 
   constructor() {
@@ -59,52 +60,110 @@ class CharacterBuilder{
   }
 
 
-  setClass(characterClass: string): CharacterBuilder {
-    this.character.class = characterClass;
-    return this;
+  setClass(className: string): void {
+    this.character.class = className;
   }
   
-  setName(characterName: string): CharacterBuilder {
-    this.character.name = characterName;
-    return this;
+  setName(name: string): void {
+    this.character.name = name;
   }
   
-  setLevel(characterLevel: number): CharacterBuilder {
-    this.character.level = characterLevel;
-    return this;
+  setLevel(level: number): void {
+    this.character.level = level;
   }
   
-  setPower(characterPower: number): CharacterBuilder {
-    this.character.power = characterPower;
-    return this;
+  setPower(power: number): void {
+    this.character.power = power;
   }
   
-  setDefense(characterDefense: number): CharacterBuilder {
-    this.character.defense = characterDefense;
-    return this;
+  setDefense(defense: number): void {
+    this.character.defense = defense;
   }
 
-  setHealth(characterHealth: number): CharacterBuilder {
-    this.character.health = characterHealth;
-    return this;
+  setHealth(health: number): void {
+    this.character.health = health;
   }
 
-  setExp(characterExp: number): CharacterBuilder {
-    this.character.exp = characterExp;
-    return this;
+  setExp(exp: number): void {
+    this.character.exp = exp;
   }
 
-  addSkill(characterSkill: string): CharacterBuilder {
-    this.character.skills?.push(characterSkill);
-    return this;
+  addSkill(skill: string): void {
+    this.character.skills?.push(skill);
   }
 
-  addItem(characterItem: string): CharacterBuilder {
-    this.character.items?.push(characterItem);
-    return this;
+  addItem(item: string): void {
+    this.character.items?.push(item);
+  }
+
+  build(): Character {
+    const character = { ...this.character };
+    this.reset();
+    return character;
   }
 }
 
+
+class CharacterSheetBuilder implements Builder {
+  private sheet: Sheet;
+
+  constructor() {
+    this.reset();
+  }
+
+  reset() {
+    this.sheet = {
+      title: '',
+      description: '',
+      stats: {},
+      skills: [],
+      items: []
+    }
+  }
+
+  setClass(className: string): void {
+    this.sheet.title = `${className} - Hoja de Personaje`; 
+  }
+
+  setName(name: string): void {
+    this.sheet.description = `Nombre: ${name}`
+  }
+
+  setLevel(level: number): void {
+    this.sheet.stats[`Nivel`] = level;
+  }
+
+  setPower(power: number): void {
+    this.sheet.stats[`Poder`] = power;
+  }
+
+  setDefense(defense: number): void {
+    this.sheet.stats[`Defensa`] = defense;
+  }
+
+  setHealth(health: number): void {
+    this.sheet.stats[`Salud`] = health;
+  }
+
+  setExp(exp: number): void {
+    this.sheet.stats[`Experiencia`] = exp;
+  }
+
+  addSkill(skill: string): void {
+    this.sheet.skills.push(skill);
+  }
+
+  addItem(item: string): void {
+    this.sheet.items.push(item);
+  }
+
+  build(): Sheet {
+    const sheet = { ...this.sheet };
+    this.reset();
+    return sheet;
+  }
+
+}
 
 
 
@@ -113,23 +172,37 @@ class CharacterBuilder{
 // -----------  CLASE DIRECTOR   --------------
 // --------------------------------------------
 
+class Director {
+  constructorWarrior(builder: Builder): void {
+    builder.setClass("Guerrero");
+    builder.setName("Conan");
+    builder.setLevel(1);
+    builder.setPower(15);
+    builder.setDefense(12);
+    builder.setHealth(60);
+    builder.setExp(0);
+    builder.addSkill("Furia");
+    builder.addItem("Espada");
+  }
 
-
-
-
-// --------------------------------------------
-// ----------  CONCRETE BUILDER   -------------
-class NpcCharacterBuilder {
-
+  constructorMage(builder: Builder): void {
+    builder.setClass("Mago");
+    builder.setName("Gandalf");
+    builder.setLevel(1);
+    builder.setPower(12);
+    builder.setDefense(8);
+    builder.setHealth(40);
+    builder.setExp(0);
+    builder.addSkill("Conjuro");
+    builder.addItem("Bastón Mágico");
+  }
 }
 
 
 
 
-// ----------  CONCRETE BUILDER   -------------
-class EnemyCharacterBuilder {
 
-}
+
 
 
 
@@ -137,9 +210,28 @@ class EnemyCharacterBuilder {
 
 
 // --------------------------------------------
-// ------------  INICIALIZADOR  ---------------
-// --------------------------------------------
-// Main
+// ---------------  CLIENTE  ------------------
+
+// 1. Instanciamos el Director
+const director = new Director();
+
+// OBTENER UN PJ GUERRERO
+// 2. Creamos un CharBuilder
+const charBuilder = new CharacterBuilder();
+// 3. Pasamos el Builder al Director para crear un Guerrero
+director.constructorWarrior(charBuilder);
+// 4. Creamos el Guerrero y lo obtenemos con el método .build() del constructor
+const warrior = charBuilder.build();
+
+
+// OBTENER UNA HOJA DE PJ MAGO
+// 2. Creamos un sheetBuilder
+const sheetBuilder = new CharacterSheetBuilder();
+// 3. Pasamos el Builder al Director para crear un Mago
+director.constructorMage(sheetBuilder);
+// 4. Creamos la hoja del Mago y lo obtenemos con el método .build() del constructor
+const mageSheet = sheetBuilder.build();
+
 
 
 
