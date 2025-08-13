@@ -2,6 +2,55 @@
 
 Sitio oficial de referencia [Refactoring Guru](https://refactoring.guru/es/design-patterns/)
 
+## Repositorio
+
+En este repositorio me dedico a recoger apuntes sobre el diseño de patrones aplicados a Typescript
+con la base de referencia de *Refactoring Guru* y unos ejercicios complementarios para practicar
+los diferentes patrones.
+
+La intención es entender y aplicar los patrones de forma práctica para cualquiera que quiera utilizar este repositorio.
+
+## Recursos e instalaciones
+
+Para la práctica se requiere del entorno de ejecución Node.js.
+
+Para trabajar en Node voy a utilizar TypeScript.
+
+### Node.js
+
+Sitio oficial [Node.js oficial Site](https://nodejs.org/es/download)
+
+```PowerShell
+# Docker provee instrucciones dedicadas para cada sistema operativo.
+# Por favor consulta la documentación oficial en https://www.docker.com/get-started/
+
+# Descarga la imagen de Docker de Node.js:
+docker pull node:22-alpine
+
+# Crea un contenedor de Node.js e inicia una sesión shell:
+docker run -it --rm --entrypoint sh node:22-alpine
+
+# Verifica la versión de Node.js:
+node -v # Debería mostrar "v22.18.0".
+
+# Verifica versión de npm:
+npm -v # Debería mostrar "10.9.3".
+```
+
+### TypeScript
+
+Sitio oficial [TypeScrit oficial Site](https://www.typescriptlang.org/download/)
+
+
+### tsx
+
+Sitio oficial [tsx oficial Site](https://tsx.is/)
+
+
+
+
+
+
 # Patrones Creacionales
 
 ## Builder
@@ -13,7 +62,7 @@ Sitio oficial de referencia [Refactoring Guru](https://refactoring.guru/es/desig
   y lo coloques dentro de objetos independientes (constructores).
 
 
-|      <interface> CharacterBuilder    |
+|   <interface> CharacterBuilder    |
 |------------------------|
 |  + reset(): void       |
 |  + setClass(): void    |
@@ -107,6 +156,7 @@ Sitio oficial de referencia [Refactoring Guru](https://refactoring.guru/es/desig
 
   ```
 
+## Ejercicios con el patrón Builder
 
 #### Tarea 01 - Construcción de pizzas 🍕
 
@@ -171,7 +221,6 @@ Crea un builder que genere distintos tipos de documentos desde un mismo modelo d
 
 #### Tarea 05 - Usa un Director
 
-El Director es opcional en el patrón Builder, pero útil para reutilizar procesos de construcción.
 📝 **Enunciado:**
 Crea una clase PizzaDirector o CharacterDirector que use un builder y tenga métodos como:
 ```ts
@@ -186,7 +235,7 @@ Crea una clase PizzaDirector o CharacterDirector que use un builder y tenga mét
 
 
 
-
+## Ejercicios con el patrón Factory Method
 
 #### Tarea 01 - Notificaciones
 
