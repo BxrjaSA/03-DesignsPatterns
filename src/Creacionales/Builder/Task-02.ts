@@ -234,4 +234,5 @@ const mageSheet = sheetBuilder.build();
 
 
 
-
+console.log('NPC Guerrero', warrior)
+console.log('Hoja de PJ Mago', mageSheet)
